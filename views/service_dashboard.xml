@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_service_dashboard" model="ir.ui.view">
+        <field name="name">service.dashboard</field>
+        <field name="model">service.order</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors" create="0">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="service_type"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary"><field name="name"/></div>
+                                    <div class="o_secondary"><field name="partner_id"/></div>
+                                </div>
+                                <div class="o_kanban_manage_button_section">
+                                    <a class="o_kanban_manage_toggle_button" href="#"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_content">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Tipo: </strong><field name="service_type"/>
+                                    </div>
+                                    <div class="col-6">
+                                        <strong>Estado: </strong><field name="state"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                <div class="o_kanban_card_manage_section o_kanban_manage_reports">
+                                    <div role="menuitem">
+                                        <a t-if="record.state.raw_value != 'done'">Iniciar Servicio</a>
+                                    </div>
+                                    <div role="menuitem">
+                                        <a t-if="record.state.raw_value == 'in_progress'">Finalizar Servicio</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_service_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard de Servicios</field>
+        <field name="res_model">service.order</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_service_dashboard"/>
+        <field name="context">{'search_default_my_services': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay órdenes de servicio para mostrar
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_assign_technician_wizard_form" model="ir.ui.view">
+        <field name="name">assign.technician.wizard.form</field>
+        <field name="model">assign.technician.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Asignar Técnico">
+                <group>
+                    <field name="service_order_id" readonly="1"/>
+                    <field name="technician_id"/>
+                    <field name="scheduled_date"/>
+                </group>
+                <footer>
+                    <button name="action_assign_technician" string="Asignar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_assign_technician_wizard" model="ir.actions.act_window">
+        <field name="name">Asignar Técnico</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">assign.technician.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

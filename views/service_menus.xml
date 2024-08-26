@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_service_root" name="Servicios" sequence="40"/>
+
+    <menuitem id="menu_service_operations" name="Operaciones" parent="menu_service_root" sequence="10"/>
+    <menuitem id="menu_service_quotation" name="Cotizaciones" action="action_service_quotation" parent="menu_service_operations" sequence="10"/>
+    <menuitem id="menu_service_order" name="Órdenes de Servicio" action="action_service_order" parent="menu_service_operations" sequence="20"/>
+    <menuitem id="menu_service_visit" name="Visitas" action="action_service_visit" parent="menu_service_operations" sequence="30"/>
+</odoo>

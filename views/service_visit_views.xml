@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_service_visit_form" model="ir.ui.view">
+            <field name="name">service.visit.form</field>
+            <field name="model">service.visit</field>
+            <field name="arch" type="xml">
+                <form string="Visita de Servicio">
+                   <header>
+                        <button name="action_start" string="Iniciar" type="object" invisible="state != 'scheduled'" class="oe_highlight"/>
+                        <button name="action_done" string="Finalizar" type="object" invisible="state != 'in_progress'" class="oe_highlight"/>
+                        <button name="action_cancel" string="Cancelar" type="object" invisible="state not in ('scheduled','in_progress')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="scheduled,in_progress,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="service_order_id"/>
+                                <field name="partner_id"/>
+                                <field name="technician_id"/>
+                            </group>
+                            <group>
+                                <field name="scheduled_date"/>
+                                <field name="actual_start"/>
+                                <field name="actual_end"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Notas">
+                                <field name="notes"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_service_visit_tree" model="ir.ui.view">
+            <field name="name">service.visit.tree</field>
+            <field name="model">service.visit</field>
+            <field name="arch" type="xml">
+                <tree string="Visitas de Servicio" decoration-info="state == 'scheduled'" decoration-success="state == 'done'" decoration-danger="state == 'cancelled'">
+                    <field name="name"/>
+                    <field name="service_order_id"/>
+                    <field name="partner_id"/>
+                    <field name="technician_id"/>
+                    <field name="scheduled_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_service_visit" model="ir.actions.act_window">
+            <field name="name">Visitas de Servicio</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.visit</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Programa tu primera visita de servicio
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
